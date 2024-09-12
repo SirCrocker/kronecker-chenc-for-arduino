@@ -4,8 +4,6 @@
 #include "Arduino.h"
 
 
-
-
 /**
  * @brief Encodes bits. 
  * 
@@ -15,7 +13,17 @@
  * 
  * @return blah
  */
-void encode_kronecker();
+void encode_kronecker_tmpd4s2(uint8_t packet);
+
+/**
+ * @brief Kronecker product of 2 bytes with 2 useful bits each in LSP
+ */
+uint8_t _kron2(uint8_t first_side, uint8_t second_side);
+
+/**
+ * @brief Kronecker product for bytes with "length" 1, 2, 4 or 8
+ */
+bool _kron_product(uint8_t first_side, uint8_t second_side, size_t size_first, size_t size_second, uint8_t *buffer) {
 
 void powermethod_hosvd();
 void rank_one_detector();
