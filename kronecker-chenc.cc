@@ -170,7 +170,7 @@ void unfold(uint8_t first_byte, uint8_t second_byte, uint8_t mode, uint8_t *buff
 
 }
 
-void powermethod_hosvd(uint8_t row_1, uint8_t row_2, uint8_t max_it, double tolerance, double *u) {
+void powermethod_hosvd_tmpd4s2(uint8_t row_1, uint8_t row_2, uint8_t max_it, double tolerance, double *u) {
 
     uint8_t random_vector = (17 * (int8_t)row_2 + 7) % 251; // "Random" ~ Linear Congruential Generator
 
@@ -182,13 +182,13 @@ void powermethod_hosvd(uint8_t row_1, uint8_t row_2, uint8_t max_it, double tole
     // double u[2];
     
     // Lets go to doubles
-    u[0] = byte_vector_to_double(u_first_row)  + 0.01;
-    u[1] = byte_vector_to_double(u_second_row) + 0.01;
+    u[0] = sum_byte_vector_to_double(u_first_row)  + 0.01;
+    u[1] = sum_byte_vector_to_double(u_second_row) + 0.01;
 
-    H_by_Ht[0][0] = 8; // byte_vector_to_double(~(u_first_row ^ u_first_row)); !
-    H_by_Ht[0][1] = byte_vector_to_double(~(u_first_row ^ u_second_row));
+    H_by_Ht[0][0] = 8; // sum_byte_vector_to_double(~(u_first_row ^ u_first_row)); !
+    H_by_Ht[0][1] = sum_byte_vector_to_double(~(u_first_row ^ u_second_row));
     H_by_Ht[1][0] = H_by_Ht[0][1];
-    H_by_Ht[1][1] = 8; // byte_vector_to_double(~(u_second_row ^ u_second_row)); !
+    H_by_Ht[1][1] = 8; // sum_byte_vector_to_double(~(u_second_row ^ u_second_row)); !
 
     /*
     ! Since we have only -1s and 1s, when we multiply by itself everything adds up to 8.
@@ -221,7 +221,7 @@ void powermethod_hosvd(uint8_t row_1, uint8_t row_2, uint8_t max_it, double tole
 
 }
 
-double byte_vector_to_double(uint8_t byte) {
+double sum_byte_vector_to_double(uint8_t byte) {
     uint8_t num_1s = bitcount(byte);
     return num_1s - (8 - num_1s);
 }
@@ -234,7 +234,7 @@ uint8_t bitcount(uint8_t b)
      return (((b + (b >> 4)) & 0x0F) * 0x01);
 }
 
-uint8_t rank_one_detector(uint8_t first_recv, uint8_t second_recv, uint8_t prior_knowledge) {
+uint8_t rank_one_detector_tmpd4s2(uint8_t first_recv, uint8_t second_recv, uint8_t prior_knowledge) {
 
     uint8_t buffer[2];
     double buffer_d[2];
@@ -245,7 +245,7 @@ uint8_t rank_one_detector(uint8_t first_recv, uint8_t second_recv, uint8_t prior
     for (uint8_t mode = 1; mode < 5; mode++) {
         output <<= 2;
         unfold(first_recv, second_recv, mode, buffer);
-        powermethod_hosvd(buffer[0], buffer[1], 3, 1e-6, buffer_d);
+        powermethod_hosvd_tmpd4s2(buffer[0], buffer[1], 3, 1e-6, buffer_d);
         factor = buffer_d[0] / (prior_knowledge & factor_mask ? 1: -1);
         output |= (buffer_d[0]/factor > 0) ? 0x02 : 0x00;
         output |= (buffer_d[1]/factor > 0) ? 0x01 : 0x00;
