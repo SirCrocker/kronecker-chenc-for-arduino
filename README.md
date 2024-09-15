@@ -16,3 +16,4 @@ A good readme is coming soon.
 
 -----
 Implementation is done for packets of 1 byte
+Coding rate 1/4
