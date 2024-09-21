@@ -44,7 +44,7 @@ bool _kron_product(uint8_t first_side, uint8_t second_side, size_t size_first, s
     }
 
     // It is a factor of 8
-    if ((size_first % 8 != 0) || (size_second % 8 != 0)) {
+    if ((8 % size_first != 0) || (8 % size_second != 0)) {
         return false;
     }
 
