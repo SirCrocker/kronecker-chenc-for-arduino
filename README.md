@@ -70,7 +70,7 @@ For more information about the algorithm and its performance read the original p
 
     - $F(-1) = 0$
     - $F(1)  = 1$
-    - $F(a * b) = F(a) \odot F(b) \quad a,b \in \{-1, 1\}$.
+    - $F(a * b) = F(a) \odot F(b) \quad a,b \in \\{-1, 1\\}$.
 
     The product is replaced by the negation of the XOR product of the transformed symbols, which has the following truth table and allows to maintain the property that $-1 * -1 = 1$.
 
