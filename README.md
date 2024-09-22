@@ -10,13 +10,13 @@
 
 ## About
 
-kronecker-chenc-for-arduino is an Arduino library that implements the channel encoding algorithm described in [the original paper](https://ieeexplore.ieee.org/document/9146283) for the case of BPSK. The implementation assumes the channel is a binary symmetric channel, that only digital data is sent and received, and that the packets' smallest unit is bytes (8 bits).
+kronecker-chenc-for-arduino is an Arduino library that implements the channel encoding algorithm described in [the paper by F. Asim et al.](https://ieeexplore.ieee.org/document/9146283) for the case of BPSK. The implementation assumes the channel is a binary symmetric channel, that only digital data is sent and received, and that the packets' smallest unit is bytes (8 bits).
 
-Currently, only TMPD-4 with Scheme 2 is implemented, and the decoder implemented is the rank-one detector which has a coding rate of 1/4 due to the need of training symbols.
+Currently, only TPMD-4 with Scheme 2 is implemented, and the decoder implemented is the rank-one detector which has a coding rate of 1/4 due to the need of training symbols.
 
 ## Installation
 
-Drag and drop the files `kronecker-chenc.cpp` and `kronecker-chenc.h` to the directory where your libraries are installed.
+Drag and drop the files `kronecker-chenc.cc` and `kronecker-chenc.h` to the directory where your libraries are installed.
 
 ## Usage
 
@@ -41,9 +41,9 @@ void loop() {
     uint8_t msg_buffer[1];
     // Check for messages
     if (Serial.readBytesUntil(0x00, msg_buffer, 1) > 0) {
-        uint8_t encoded[2] = encode_kronecker_tmpd4s2(msg_buffer[0]);
+        uint8_t encoded[2] = encode_kronecker_tpmd4s2(msg_buffer[0]);
 
-        uint8_t decoded = rank_one_detector_tmpd4s2(encoded[0], encoded[1], TRAINING_SYMBOLS);
+        uint8_t decoded = rank_one_detector_tpmd4s2(encoded[0], encoded[1], TRAINING_SYMBOLS);
         Serial.println(decoded, BIN);
     }
 
@@ -61,7 +61,7 @@ kronecker-chenc-for-arduino is licensed under the [MIT](./LICENSE) license.
 
 ## More Information
 
-For more information about the algorithm and its performance read the original paper at https://ieeexplore.ieee.org/document/9146283.
+For more information about the algorithm and its performance read the original paper by Fazal E-Asim et al. at https://ieeexplore.ieee.org/document/9146283.
 
 ### Implementation details 
 
