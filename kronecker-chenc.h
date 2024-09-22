@@ -12,7 +12,7 @@
  * 
  * @return pointer to array of size 2
  */
-uint8_t* encode_kronecker_tmpd4s2(uint8_t packet);
+uint8_t* encode_kronecker_tpmd4s2(uint8_t packet);
 
 /**
  * @brief Kronecker product between the 2 last bits of 2 bytes. The 2 last bits are in position 0x01 and 0x02.
@@ -89,7 +89,7 @@ double sum_byte_vector_to_double(uint8_t byte);
  * 
  * @return nothing
  */
-void powermethod_hosvd_tmpd4s2(uint8_t row_1, uint8_t row_2, uint8_t max_it, double tolerance, double *u);
+void powermethod_hosvd_tpmd4s2(uint8_t row_1, uint8_t row_2, uint8_t max_it, double tolerance, double *u);
 
 /**
  * @brief Decodes kronecker-product encoded data using rank one detector.
@@ -102,6 +102,6 @@ void powermethod_hosvd_tmpd4s2(uint8_t row_1, uint8_t row_2, uint8_t max_it, dou
  * 
  * @return decoded byte.
  */
-uint8_t rank_one_detector_tmpd4s2(uint8_t first_recv, uint8_t second_recv, uint8_t prior_knowledge);
+uint8_t rank_one_detector_tpmd4s2(uint8_t first_recv, uint8_t second_recv, uint8_t prior_knowledge);
 
 #endif // _KRONECKER_CHENC_H_

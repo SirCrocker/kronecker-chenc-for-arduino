@@ -1,6 +1,6 @@
 #include "kronecker-chenc.h"
 
-uint8_t* encode_kronecker_tmpd4s2(uint8_t packet) {
+uint8_t* encode_kronecker_tpmd4s2(uint8_t packet) {
     // We will use only bits in a column vector, so we can do the following.
     // For TMPD-4 SCH 2 we need 16 bits for an 8 bit packet
     // 7,8 - 5,6 - 3,4 - 1,2
@@ -170,7 +170,7 @@ void unfold(uint8_t first_byte, uint8_t second_byte, uint8_t mode, uint8_t *buff
 
 }
 
-void powermethod_hosvd_tmpd4s2(uint8_t row_1, uint8_t row_2, uint8_t max_it, double tolerance, double *u) {
+void powermethod_hosvd_tpmd4s2(uint8_t row_1, uint8_t row_2, uint8_t max_it, double tolerance, double *u) {
 
     uint8_t random_vector = (17 * (int8_t)row_2 + 7) % 251; // "Random" ~ Linear Congruential Generator
 
@@ -234,7 +234,7 @@ uint8_t bitcount(uint8_t b)
      return (((b + (b >> 4)) & 0x0F) * 0x01);
 }
 
-uint8_t rank_one_detector_tmpd4s2(uint8_t first_recv, uint8_t second_recv, uint8_t prior_knowledge) {
+uint8_t rank_one_detector_tpmd4s2(uint8_t first_recv, uint8_t second_recv, uint8_t prior_knowledge) {
 
     uint8_t buffer[2];
     double buffer_d[2];
@@ -245,7 +245,7 @@ uint8_t rank_one_detector_tmpd4s2(uint8_t first_recv, uint8_t second_recv, uint8
     for (uint8_t mode = 1; mode < 5; mode++) {
         output <<= 2;
         unfold(first_recv, second_recv, mode, buffer);
-        powermethod_hosvd_tmpd4s2(buffer[0], buffer[1], 3, 1e-6, buffer_d);
+        powermethod_hosvd_tpmd4s2(buffer[0], buffer[1], 3, 1e-6, buffer_d);
         factor = buffer_d[0] / (prior_knowledge & factor_mask ? 1: -1);
         output |= (buffer_d[0]/factor > 0) ? 0x02 : 0x00;
         output |= (buffer_d[1]/factor > 0) ? 0x01 : 0x00;
