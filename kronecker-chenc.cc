@@ -172,7 +172,7 @@ void unfold(uint8_t first_byte, uint8_t second_byte, uint8_t mode, uint8_t *buff
 
 void powermethod_hosvd_tpmd4s2(uint8_t row_1, uint8_t row_2, uint8_t max_it, double tolerance, double *u) {
 
-    uint8_t random_vector = (17 * (int8_t)row_2 + 7) % 251; // "Random" ~ Linear Congruential Generator
+    uint8_t random_vector = 0b10010100; // "Random"
 
     // We still deal in bits
     uint8_t u_first_row = ~(random_vector ^ row_1);
