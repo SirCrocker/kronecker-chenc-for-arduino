@@ -4,7 +4,6 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Support](#support)
-- [Roadmap](#roadmap)
 - [License](#license)
 - [More information](#more-information)
 
